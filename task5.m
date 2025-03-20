@@ -24,7 +24,7 @@ N = nn;
 
 [~, Ud1, Ud] = fresnel_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
 [~, Ud2] = fraunhofer_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
-Ud = exp(1j*2*pi*z/lambda) - Ud;
+Ud = 1 - Ud;
 Ud1 = exp(1j*2*pi*z/lambda) - Ud1;
 Ud2 = exp(1j*2*pi*z/lambda) - Ud2;
 
