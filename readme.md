@@ -1,5 +1,7 @@
 # 相干光场在自由空间中传播衍射的数值计算
 
+[![View Diffraction-Calculation on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/180450-diffraction-calculation)
+
 ---
 
 ## 三种衍射积分形式
@@ -40,8 +42,6 @@ F\left( x \right) =\int_{-\infty}^{+\infty}{f\left( x_0 \right) \mathrm{e}^{-\ma
 =A\sum_i^{m-1}{f\left( Ai+x_{\min} \right) \mathrm{e}^{-\mathrm{j}2\pi \left( BiI+Ci+DI+E \right)}}
 \\
 =A\left\{ \sum_i^{m-1}{\left[ f\left( Ai+x_{\min} \right) \mathrm{e}^{-\mathrm{j}2\pi Ci} \right] \mathrm{e}^{-\mathrm{j}2\pi BiI}} \right\} \mathrm{e}^{-\mathrm{j}2\pi \left( DI+E \right)}
-\\
-=...
 $$
 
 其中
