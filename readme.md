@@ -70,7 +70,7 @@ $
 
 时间复杂度$Nlog(N)$
 
-代码请见 [myFFT.m](myFFT.m) 和 [myFFT2.m](myFFT2.m)
+代码请见 [myFFT1.m](myFFT1.m) 和 [myFFT2.m](myFFT2.m)
 
 ---
 
