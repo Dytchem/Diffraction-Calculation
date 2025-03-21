@@ -1,4 +1,4 @@
-# 相干光场在自由空间中传播衍射的数值计算
+# 标量衍射理论 —— 相干光场在自由空间中传播衍射的数值计算（FFT）
 
 [![View Diffraction-Calculation on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/180450-diffraction-calculation)
 
