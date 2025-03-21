@@ -12,14 +12,15 @@ ix = 0:m - 1;
 iy = 0:n - 1;
 Ix = 0:M - 1;
 Iy = 0:N - 1;
+IX = [Ix, -m:-1];
+IY = [Iy, -n:-1];
 [ix, iy] = meshgrid(ix, iy);
 [Ix, Iy] = meshgrid(Ix, Iy);
+[IX, IY] = meshgrid(IX, IY);
 
 U1 = Ud .* exp(-1j*pi*(kx * kX * ix.^2 + ky * kY * iy.^2 + 2 * kx * Xmin * ix + 2 * ky * Ymin * iy));
-U1 = [U1, zeros(n, M); zeros(N, m+M)];
-U2 = [exp(1j*pi*(kx * kX * Ix.^2 + ky * kY * Iy.^2)), exp(1j*pi*(kx * kX * (ones(N, 1) .* (-m:-1)).^2 + ky * kY * ((0:N - 1)' .* ones(1, m)).^2)); ...
-    exp(1j*pi*(kx * kX * ((0:M - 1) .* ones(n, 1)).^2 + ky * kY * (ones(1, M) .* (-n:-1)').^2)), exp(1j*pi*(kx * kX * (ones(n, 1) .* (-m:-1)).^2 + ky * kY * (ones(1, m) .* (-n:-1)').^2))];
-
+U1(n+N, m+M) = 0;
+U2 = exp(1j*pi*(kx * kX * IX.^2 + ky * kY * IY.^2));
 Ud1 = ifft2(fft2(U1).*fft2(U2)); % 卷积定理
 % Ud1 = cconv2(U1, U2);
 

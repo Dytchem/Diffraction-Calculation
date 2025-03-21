@@ -52,9 +52,12 @@ $$
 
 ![32*32](src/task1.png)
 
-- [128*128](task2.m)
+- [128*128](task2_1.m)
 
-![128*128](src/task2.png)
+![128*128](src/task2_1.png)
+
+- [1024*1024](task2_2.m)
+![1024*1024](src/task2_2.png)
 
 ---
 
@@ -64,18 +67,23 @@ $$
 
 ![双缝干涉初始光场](src/task3_1.png)
 ![双缝干涉衍射光场](src/task3_2.png)
+![双缝干涉衍射光场](src/task3_3.png)]
 
 - [振幅型余弦光栅](task4.m)
 
 ![振幅型余弦光栅初始光场](src/task4_1.png)
 ![振幅型余弦光栅衍射光场](src/task4_2.png)
+![振幅型余弦光栅衍射光场](src/task4_3.png)
 
 - [泊松亮斑](task5.m)
 
 ![泊松亮斑初始光场](src/task5_1.png)
 ![泊松亮斑衍射光场](src/task5_2.png)
+![泊松亮斑衍射光场](src/task5_3.png)
 
-- [旋转周期型波片](task6.m)
+- [高斯拉盖尔光束](task6.m)
 
-![旋转周期型波片初始光场](src/task6_1.png)
-![旋转周期型波片衍射光场](src/task6_2.png)
+![高斯拉盖尔光束初始光场](src/task6_1.png)
+![高斯拉盖尔光束衍射光场](src/task6_2.png)
+![高斯拉盖尔光束衍射光场](src/task6_3.png)
+![高斯拉盖尔光束衍射光场](src/task6_4.png)

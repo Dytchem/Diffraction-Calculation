@@ -1,7 +1,7 @@
 %% 直接求和积分（SUM）与快速傅里叶变换积分（FFT）的对比
 clear, clc, close all
 
-Uc = @(x, y)x^2 + y^2 <= (1e-3)^2;
+Uc = @(x, y)x.^2 + y.^2 <= (1e-3)^2;
 lambda = 633e-9;
 z = 100;
 xmin = -1e-3;

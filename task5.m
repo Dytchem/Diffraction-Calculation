@@ -3,7 +3,7 @@ clear, clc, close all
 
 lambda = 633e-9; % 波长
 r = 1e-2; % 圆盘半径
-z = 10; % 传播距离
+z = 30; % 传播距离
 Xmin = -2 * r;
 Xmax = 2 * r;
 Ymin = -2 * r;
@@ -14,7 +14,7 @@ xmin = -r;
 xmax = r;
 ymin = -r;
 ymax = r;
-Uc = @(x, y)x^2 + y^2 < r^2;
+Uc = @(x, y)x.^2 + y.^2 < r^2;
 
 
 m = nn;
@@ -24,6 +24,8 @@ N = nn;
 
 [~, Ud1, Ud] = fresnel_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
 [~, Ud2] = fraunhofer_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
+
+% 互补原理
 Ud = 1 - Ud;
 Ud1 = exp(1j*2*pi*z/lambda) - Ud1;
 Ud2 = exp(1j*2*pi*z/lambda) - Ud2;

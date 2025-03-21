@@ -2,14 +2,14 @@
 clear, clc, close all
 
 lambda = 633e-9; % 波长
-a = 1e-5; % 缝宽
-d = 1e-4; % 缝间距
-c = 1; % 缝长度
-z = 1; % 传播距离
-Xmin = -0.02;
-Xmax = 0.02;
-Ymin = -0.1;
-Ymax = 0.1; % 观察屏范围
+a = 1e-4; % 缝宽
+d = 1e-3; % 缝间距
+c = d; % 缝长度
+z = 5; % 传播距离
+Xmin = -lambda * z / d * 20;
+Xmax = -Xmin;
+Ymin = -c * 10;
+Ymax = c * 10; % 观察屏范围
 nn = 512; % 高分辨率
 
 xmin = -a / 2 - d / 2;

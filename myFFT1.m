@@ -6,11 +6,11 @@ kx = (xmax - xmin) / (m - 1);
 kX = (Xmax - Xmin) / (M - 1);
 ix = 0:m - 1;
 Ix = 0:M - 1;
+IX = [Ix, -m:-1];
 
 U1 = Ud .* exp(-1j*pi*(kx * kX * ix.^2 + 2 * kx * Xmin * ix));
-U1 = [U1, zeros(1, M)];
-U2 = exp(1j*pi*kx*kX.*Ix.^2);
-U2 = [U2, exp(1j*pi*kx*kX.*(-m:-1).^2)];
+U1(1, m+M) = 0;
+U2 = exp(1j*pi*kx*kX.*IX.^2);
 
 Ud1 = ifft(fft(U1).*fft(U2)); % 卷积定理
 % Ud1 = cconv(U1, U2, m+M);

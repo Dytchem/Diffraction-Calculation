@@ -5,11 +5,11 @@ lambda = 633e-9; % 波长
 a = 1e-2; % 光栅长度
 b = 1e-2; % 光栅高度
 d = 1e-3; % 光栅常数
-z = 10; % 传播距离
-Xmin = -a;
-Xmax = a;
-Ymin = -b;
-Ymax = b; % 观察屏范围
+z = 100; % 传播距离
+Xmin = -a * 10;
+Xmax = a * 10;
+Ymin = -b * 10;
+Ymax = b * 10; % 观察屏范围
 nn = 512; % 高分辨率
 
 xmin = -a / 2;

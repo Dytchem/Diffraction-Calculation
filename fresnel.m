@@ -5,11 +5,9 @@ function [Uc1, Ud1, Ud] = fresnel(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, X
 %   z 传播距离
 
 k = 2 * pi / lambda;
-Ud = discretize(Uc, xmin, xmax, ymin, ymax, m, n);
+[Ud, x, y] = discretize(Uc, xmin, xmax, ymin, ymax, m, n);
 Ud1 = zeros(N, M);
-x = linspace(xmin, xmax, m);
-y = linspace(ymin, ymax, n);
-[x, y] = meshgrid(x, y);
+
 for i = 1:M
     X = (Xmax - Xmin) / (M - 1) * (i - 1) + Xmin;
     for j = 1:N

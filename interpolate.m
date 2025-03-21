@@ -8,8 +8,7 @@ N = size(Ud, 1);
 X = linspace(xmin, xmax, M);
 Y = linspace(ymin, ymax, N);
 [X, Y] = meshgrid(X, Y);
-% X = X';
-% Y = Y';
+
 Uc = @(x, y)interp2(X, Y, Ud, x, y, "spline");
 
 end

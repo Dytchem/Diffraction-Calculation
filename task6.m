@@ -1,4 +1,4 @@
-%% 旋转周期波片
+%% 高斯拉盖尔光束
 clear, clc, close all
 
 lambda = 633e-9; % 波长
