@@ -2,9 +2,11 @@
 
 [![View Diffraction-Calculation on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/180450-diffraction-calculation)
 
+[其他渠道查看此页](https://hexo.dytchem.cn/2025/03/22/Diffraction-Calculation/)
+
 ---
 
-创新点：
+- 创新点
 
 本项目实现了更一般情况下的快速离散傅里叶变换（DFT），
 
