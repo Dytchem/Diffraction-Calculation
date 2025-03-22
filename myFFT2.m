@@ -1,6 +1,8 @@
 function Ud1 = myFFT2(Ud, xmin, xmax, ymin, ymax, Xmin, Xmax, Ymin, Ymax, M, N)
 %MYFFT2 求离散分布Ud(X0,Y0)对应的连续分布Uc(x0,y0)的傅里叶变换Uc1(x,y)=∫∫Uc(x0,y0)exp(-i2pi(x0*x+y0*y))dx0dy0对应的离散分布Ud1(X,Y)
-%   M,N 输出光场的网格数
+%   xmin,xmax,ymin,ymax 原函数的积分范围
+%   Xmin,Xmax,Ymin,Ymax 像函数的计算范围
+%   M,N 像函数的网格数量
 
 m = size(Ud, 2);
 n = size(Ud, 1);

@@ -4,7 +4,25 @@
 
 ---
 
-## 三种衍射积分形式
+创新点：
+
+本项目实现了更一般情况下的快速离散傅里叶变换（DFT），
+
+$$
+Y_q=\sum_{p=0}^{n-1}{X_p\mathrm{e}^{-\mathrm{i}2\pi kpq}}\,\,\left( k\in \mathbb{R} \right)
+$$
+
+[跳转到DFT计算](#dft-section)
+
+进而实现了更方便易用的连续傅里叶变换（FT）积分数值计算算法。
+
+该算法不用限制原函数与像函数的网格尺寸，实现了针对任意区域任意精度的目标像函数计算。
+
+（详见[myFFT1.m](myFFT1.m)和[myFFT2.m](myFFT2.m)）
+
+---
+
+## 四种衍射积分形式
 
 - 基尔霍夫衍射初步近似（简单离散积分）
 
@@ -24,6 +42,16 @@ $$
 U\left( x,y \right) =\frac{\mathrm{e}^{\mathrm{j}kz}}{\mathrm{j}\lambda z}e^{\mathrm{j}\frac{k}{2z}\left( x^2+y^2 \right)}\iint_{-\infty}^{+\infty}{U_0\left( x_0,y_0 \right) \mathrm{e}^{-\mathrm{j}\frac{k}{z}\left( x_0x+y_0y \right)}\mathrm{d}x_0\mathrm{d}y_0}
 $$
 
+- 角谱传播公式（快速傅里叶变换快速卷积）
+
+$$
+\left\{ \begin{aligned}
+ A_0\left( \xi ,\eta \right) &=\iint_{-\infty}^{+\infty}{U_0\left( x_0,y_0 \right) \mathrm{e}^{-\mathrm{j}2\pi \left( \xi x_0+\eta y_0 \right)}\mathrm{d}x_0\mathrm{d}y_0}\\
+ A\left( \xi ,\eta \right) &=A_0\left( \xi _0,\eta _0 \right) e^{\mathrm{j}kz\sqrt{1-\left( \lambda \xi \right) ^2-\left( \lambda \eta \right) ^2}}\\
+ U\left( x,y \right) &=\iint_{-\infty}^{+\infty}{A\left( \xi ,\eta \right) \mathrm{e}^{\mathrm{j}2\pi \left( \xi x+\eta y \right)}\mathrm{d}\xi \mathrm{d}\eta}\\
+\end{aligned} \right.
+$$
+
 ---
 
 ## 两种积分运算方式
@@ -34,13 +62,32 @@ $$
 
 - 快速傅里叶变换快速卷积
 
-![积分离散化](src/f1.png)
+$$
+\begin{cases}
+ F\left( x \right)\\
+ =\int_{-\infty}^{+\infty}{f\left( x_0 \right) \mathrm{e}^{-\mathrm{j}2\pi x_0x}\mathrm{d}x_0}\\
+ =\frac{x_{\max}-x_{\min}}{m-1}\sum_{i=0}^{m-1}{f\left( \frac{x_{\max}-x_{\min}}{m-1}i+x_{\min} \right) \mathrm{e}^{-\mathrm{j}2\pi \left( \frac{x_{\max}-x_{\min}}{m-1}i+x_{\min} \right) \left( \frac{X_{\max}-X_{\min}}{M-1}I+X_{\min} \right)}}\\
+ =A\sum_i^{m-1}{f\left( Ai+x_{\min} \right) \mathrm{e}^{-\mathrm{j}2\pi \left( BiI+Ci+DI+E \right)}}\\
+ =A\left\{ \sum_i^{m-1}{\left[ f\left( Ai+x_{\min} \right) \mathrm{e}^{-\mathrm{j}2\pi Ci} \right] \mathrm{e}^{-\mathrm{j}2\pi BiI}} \right\} \mathrm{e}^{-\mathrm{j}2\pi \left( DI+E \right)}\\
+ =...\\
+\end{cases}
+$$
 
-其中
+<span id="dft-section"></span>
+最后，一般情况下的离散傅里叶变换（DFT）计算如下：
 
-![快速傅里叶变换和快速卷积](src/f2.png)
+$$
+\begin{cases}
+ Y_q=\sum_{p=0}^{n-1}{X_p\mathrm{e}^{-\mathrm{i}2\pi kpq}}\,\,\left( k\in \mathbb{R} \right)\\
+ =\sum_{p=0}^{n-1}{X_p\mathrm{e}^{\mathrm{i}\pi k\left[ \left( p-q \right) ^2-p^2-q^2 \right]}}\\
+ =\left[ \sum_{p=0}^{n-1}{X_p\mathrm{e}^{-\mathrm{i}\pi kp^2}\mathrm{e}^{\mathrm{i}\pi k\left( p-q \right) ^2}} \right] \mathrm{e}^{-\mathrm{i}\pi kq^2}\\
+ =\left( X_p\mathrm{e}^{-\mathrm{i}\pi kp^2}*\mathrm{e}^{\mathrm{i}\pi kp^2} \right) \mathrm{e}^{-\mathrm{i}\pi kq^2}\\
+ =\mathscr{F} ^{-1}\left\{ \mathscr{F} \left\{ X_p\mathrm{e}^{-\mathrm{i}\pi kp^2}*\mathrm{e}^{\mathrm{i}\pi kp^2} \right\} \right\} \mathrm{e}^{-\mathrm{i}\pi kq^2}\\
+ =\mathscr{F} ^{-1}\left\{ \mathscr{F} \left\{ X_p\mathrm{e}^{-\mathrm{i}\pi kp^2} \right\} \mathscr{F} \left\{ \mathrm{e}^{\mathrm{i}\pi kp^2} \right\} \right\} \mathrm{e}^{-\mathrm{i}\pi kq^2}\\
+\end{cases}
+$$
 
-时间复杂度$Nlog(N)$
+时间复杂度$Nlog(N)$，显著优于简单离散积分
 
 代码请见 [myFFT1.m](myFFT1.m) 和 [myFFT2.m](myFFT2.m)
 
@@ -48,7 +95,7 @@ $$
 
 ## 效率对比
 
-- [32*32](task1.m)
+- [32*32](task1_1.m)
 
 ![32*32](src/task1.png)
 
@@ -67,21 +114,21 @@ $$
 
 ![双缝干涉初始光场](src/task3_1.png)
 ![双缝干涉衍射光场](src/task3_2.png)
-![双缝干涉衍射光场](src/task3_3.png)]
+![双缝干涉衍射光场](src/task3_3.png)
 
-- [振幅型余弦光栅](task4.m)
+- [振幅型余弦光栅](task4_1.m)
 
 ![振幅型余弦光栅初始光场](src/task4_1.png)
 ![振幅型余弦光栅衍射光场](src/task4_2.png)
 ![振幅型余弦光栅衍射光场](src/task4_3.png)
 
-- [泊松亮斑](task5.m)
+- [泊松亮斑](task5_1.m)
 
 ![泊松亮斑初始光场](src/task5_1.png)
 ![泊松亮斑衍射光场](src/task5_2.png)
 ![泊松亮斑衍射光场](src/task5_3.png)
 
-- [高斯拉盖尔光束](task6.m)
+- [高斯拉盖尔光束](task6_1.m)
 
 ![高斯拉盖尔光束初始光场](src/task6_1.png)
 ![高斯拉盖尔光束衍射光场](src/task6_2.png)

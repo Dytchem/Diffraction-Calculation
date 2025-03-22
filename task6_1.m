@@ -1,9 +1,11 @@
-%% 泊松亮斑
+%% 高斯拉盖尔光束
 clear, clc, close all
 
 lambda = 633e-9; % 波长
-r = 1e-2; % 圆盘半径
-z = 30; % 传播距离
+r = 5e-3; % 波片半径
+w = 1e-3; % 参数
+l = 5; % 参数
+z = 5; % 传播距离
 Xmin = -2 * r;
 Xmax = 2 * r;
 Ymin = -2 * r;
@@ -14,7 +16,7 @@ xmin = -r;
 xmax = r;
 ymin = -r;
 ymax = r;
-Uc = @(x, y)x.^2 + y.^2 < r^2;
+Uc = @(x, y)(x^2 + y^2 < r^2) .* ((x.^2 + y.^2) .* exp(-(x.^2 + y.^2)/w^2+1j*l*atan2(x, y)));
 
 
 m = nn;
@@ -24,12 +26,7 @@ N = nn;
 
 [~, Ud1, Ud] = fresnel_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
 [~, Ud2] = fraunhofer_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
-
-% 互补原理
-Ud = 1 - Ud;
-Ud1 = exp(1j*2*pi*z/lambda) - Ud1;
-Ud2 = exp(1j*2*pi*z/lambda) - Ud2;
-
+[~, Ud3] = jiaopu(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
 
 x = linspace(xmin, xmax, m);
 y = linspace(ymin, ymax, n);
@@ -42,6 +39,7 @@ figs = [];
 work(x, y, Ud, "初始光场U_0(x_0,y_0)");
 work(X, Y, Ud1, "菲涅尔衍射光场");
 work(X, Y, Ud2, "夫琅禾费衍射光场");
+work(X, Y, Ud3, "角谱传播计算光场");
 
 
 function work(x, y, U, name)

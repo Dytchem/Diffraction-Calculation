@@ -1,22 +1,20 @@
-%% 计算双缝干涉条纹（直接计算）
+%% 泊松亮斑
 clear, clc, close all
 
 lambda = 633e-9; % 波长
-a = 1e-4; % 缝宽
-d = 1e-3; % 缝间距
-c = d; % 缝长度
-z = 5; % 传播距离
-Xmin = -lambda * z / d * 20;
-Xmax = -Xmin;
-Ymin = -c * 10;
-Ymax = c * 10; % 观察屏范围
+r = 1e-2; % 圆盘半径
+z = 30; % 传播距离
+Xmin = -2 * r;
+Xmax = 2 * r;
+Ymin = -2 * r;
+Ymax = 2 * r; % 观察屏范围
 nn = 512; % 高分辨率
 
-xmin = -a / 2 - d / 2;
-xmax = a / 2 + d / 2;
-ymin = -c / 2;
-ymax = c / 2;
-Uc = @(x, y)abs(x) >= (d - a) / 2;
+xmin = -r;
+xmax = r;
+ymin = -r;
+ymax = r;
+Uc = @(x, y)x.^2 + y.^2 < r^2;
 
 
 m = nn;
@@ -27,6 +25,12 @@ N = nn;
 [~, Ud1, Ud] = fresnel_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
 [~, Ud2] = fraunhofer_fft(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
 [~, Ud3] = jiaopu(Uc, xmin, xmax, ymin, ymax, m, n, lambda, z, Xmin, Xmax, Ymin, Ymax, M, N);
+
+% 互补原理
+Ud = 1 - Ud;
+Ud1 = exp(1j*2*pi*z/lambda) - Ud1;
+Ud2 = exp(1j*2*pi*z/lambda) - Ud2;
+
 
 x = linspace(xmin, xmax, m);
 y = linspace(ymin, ymax, n);

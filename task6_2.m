@@ -1,22 +1,22 @@
-%% 计算双缝干涉条纹（直接计算）
+%% 高斯拉盖尔光束（使角谱正确）
 clear, clc, close all
 
 lambda = 633e-9; % 波长
-a = 1e-4; % 缝宽
-d = 1e-3; % 缝间距
-c = d; % 缝长度
-z = 5; % 传播距离
-Xmin = -lambda * z / d * 20;
-Xmax = -Xmin;
-Ymin = -c * 10;
-Ymax = c * 10; % 观察屏范围
-nn = 512; % 高分辨率
+r = 5e-5; % 波片半径
+w = 1e-5; % 参数
+l = 5; % 参数
+z = 0.0001; % 传播距离
+Xmin = -2 * r;
+Xmax = 2 * r;
+Ymin = -2 * r;
+Ymax = 2 * r; % 观察屏范围
+nn = 1024; % 高分辨率
 
-xmin = -a / 2 - d / 2;
-xmax = a / 2 + d / 2;
-ymin = -c / 2;
-ymax = c / 2;
-Uc = @(x, y)abs(x) >= (d - a) / 2;
+xmin = -r;
+xmax = r;
+ymin = -r;
+ymax = r;
+Uc = @(x, y)(x^2 + y^2 < r^2) .* ((x.^2 + y.^2) .* exp(-(x.^2 + y.^2)/w^2+1j*l*atan2(x, y)));
 
 
 m = nn;

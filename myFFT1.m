@@ -1,5 +1,8 @@
 function Ud1 = myFFT1(Ud, xmin, xmax, Xmin, Xmax, M)
 %MYFFT1 求离散分布Ud(X0)对应的连续分布Uc(x0)的傅里叶变换Uc1(x)=∫Uc(x0)exp(-i2pi*x0*x)dx0对应的离散分布Ud1(X)
+%   xmin,xmax 原函数的积分范围
+%   Xmin,Xmax 像函数的计算范围
+%   M 像函数的网格数量
 
 m = length(Ud);
 kx = (xmax - xmin) / (m - 1);
