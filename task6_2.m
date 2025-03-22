@@ -16,7 +16,7 @@ xmin = -r;
 xmax = r;
 ymin = -r;
 ymax = r;
-Uc = @(x, y)(x^2 + y^2 < r^2) .* ((x.^2 + y.^2) .* exp(-(x.^2 + y.^2)/w^2+1j*l*atan2(x, y)));
+Uc = @(x, y)(x^2 + y^2 < r^2) .* ((x.^2 + y.^2).^(l / 2) .* exp(-(x.^2 + y.^2)/w^2+1j*l*atan2(x, y)));
 
 
 m = nn;

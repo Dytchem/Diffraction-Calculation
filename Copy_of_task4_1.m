@@ -1,22 +1,22 @@
-%% 高斯拉盖尔光束
+%% 振幅型余弦光栅
 clear, clc, close all
 
 lambda = 633e-9; % 波长
-r = 5e-3; % 波片半径
-w = 1e-3; % 参数
-l = 5; % 参数
-z = 5; % 传播距离
-Xmin = -2 * r;
-Xmax = 2 * r;
-Ymin = -2 * r;
-Ymax = 2 * r; % 观察屏范围
+a = 1e-2; % 光栅长度
+b = 1e-2; % 光栅高度
+d = 2e-3; % 光栅常数
+z = 200; % 传播距离
+Xmin = -0.1;
+Xmax = 0.1;
+Ymin = -0.1;
+Ymax = 0.1; % 观察屏范围
 nn = 512; % 高分辨率
 
-xmin = -r;
-xmax = r;
-ymin = -r;
-ymax = r;
-Uc = @(x, y)(x^2 + y^2 < r^2) .* ((x.^2 + y.^2).^(l / 2) .* exp(-(x.^2 + y.^2)/w^2+1j*l*atan2(x, y)));
+xmin = -a / 2;
+xmax = a / 2;
+ymin = -b / 2;
+ymax = b / 2;
+Uc = @(x, y)(1 + cos(2*pi*x/d)) / 2;
 
 
 m = nn;
@@ -38,8 +38,8 @@ Y = linspace(Ymin, Ymax, N);
 figs = [];
 work(x, y, Ud, "初始光场U_0(x_0,y_0)");
 work(X, Y, Ud1, "菲涅尔衍射光场");
-work(X, Y, Ud2, "夫琅禾费衍射光场");
-work(X, Y, Ud3, "角谱传播计算光场");
+% work(X, Y, Ud2, "夫琅禾费衍射光场");
+% work(X, Y, Ud3, "角谱传播计算光场");
 
 
 function work(x, y, U, name)
@@ -56,6 +56,7 @@ colorbar('Limits', [cmin, cmax]); % 固定颜色范围
 
 subplot(1, 2, 2)
 surf(x, y, mod(angle(U), 2*pi), 'EdgeColor', 'none', 'FaceAlpha', 0.8)
+% surf(x, y, angle(U), 'EdgeColor', 'none', 'FaceAlpha', 0.8)
 xlabel("x")
 ylabel("y")
 zlabel("\phi")
